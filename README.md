@@ -44,11 +44,3 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
-
-## Reference Links for Recent Upgrades
-
-- **React 19**: [React 19 Announcement](https://react.dev/blog/2024/12/05/react-19)
-- **Node.js 24**: [Node.js Releases](https://nodejs.org/en/about/previous-releases)
-- **Vercel Configuration**: [Project Configuration (cleanUrls, rewrites)](https://vercel.com/docs/projects/project-configuration)
-- **React createRoot API**: [Using createRoot](https://react.dev/reference/react-dom/client/createRoot)
-- **Web Vitals v4**: [Web Vitals Library](https://github.com/GoogleChrome/web-vitals)
