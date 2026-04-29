@@ -1,5 +1,5 @@
-import Ayah from "./Ayah";
-import { AyahProps } from "./Ayah";
+import Ayah from './Ayah';
+import { AyahProps } from './Ayah';
 
 export type AyahDisplayProps = {
   ayahs: AyahProps[];
