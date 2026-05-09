@@ -1,9 +1,9 @@
-import React from "react";
-import { render, screen } from "@testing-library/react";
-import App from "./App";
+import React from 'react';
+import { render, screen } from '@testing-library/react';
+import App from './App';
 
-test("renders game container", () => {
+test('renders game container', () => {
   render(<App />);
-  const gameContainer = screen.getByRole("textbox");
+  const gameContainer = screen.getByRole('textbox');
   expect(gameContainer).toBeInTheDocument();
 });
