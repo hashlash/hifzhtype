@@ -1,18 +1,13 @@
 import Ayah from "./Ayah";
-import { AyahData } from "../types/surah";
+import { AyahProps } from "./Ayah";
 
 export type AyahDisplayProps = {
-  ayahs: AyahData[];
+  ayahs: AyahProps[];
 };
 
 export default function AyahDisplay({ ayahs }: AyahDisplayProps) {
   const ayahsDOM = ayahs.map((ayah, index) => (
-    <Ayah
-      key={index}
-      words={ayah.words}
-      translation={ayah.translation}
-      number={ayah.number}
-    ></Ayah>
+    <Ayah key={index} words={ayah.words}></Ayah>
   ));
   return <div>{ayahsDOM}</div>;
 }
