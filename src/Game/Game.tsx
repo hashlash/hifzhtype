@@ -1,30 +1,14 @@
 import AyahDisplay from './AyahDisplay';
 import Input from './Input';
+import { fatihah } from '../data/surah/1';
 
 export default function Game() {
-  const ayahs = [
-    {
-      words: [
-        { text: 'بِسْمِ' },
-        { text: 'اللَّهِ' },
-        { text: 'الرَّحْمَٰنِ' },
-        { text: 'الرَّحِيمِ' },
-      ],
-    },
-    {
-      words: [
-        { text: 'الْحَمْدُ' },
-        { text: 'لِلَّهِ' },
-        { text: 'رَبِّ' },
-        { text: 'الْعَالَمِينَ' },
-      ],
-    },
-    {
-      words: [{ text: 'الرَّحْمَٰنِ' }, { text: 'الرَّحِيمِ' }],
-    },
-  ];
+  const ayahs = fatihah.ayahs;
   return (
-    <div>
+    <div dir="rtl" lang="ar">
+      <h1>
+        {fatihah.number}. {fatihah.transliteration} ({fatihah.name})
+      </h1>
       <AyahDisplay ayahs={ayahs}></AyahDisplay>
       <br />
       <Input></Input>
