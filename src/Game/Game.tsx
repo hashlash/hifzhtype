@@ -1,61 +1,14 @@
-import AyahDisplay from "./AyahDisplay";
-import Input from "./Input";
+import AyahDisplay from './AyahDisplay';
+import Input from './Input';
+import { fatihah } from '../data/surah/1';
 
 export default function Game() {
-  const ayahs = [
-    {
-      words: [
-        { text: "بِسْمِ" },
-        { text: "اللَّهِ" },
-        { text: "الرَّحْمَٰنِ" },
-        { text: "الرَّحِيمِ" },
-      ],
-    },
-    {
-      words: [
-        { text: "الْحَمْدُ" },
-        { text: "لِلَّهِ" },
-        { text: "رَبِّ" },
-        { text: "الْعَالَمِينَ" },
-      ],
-    },
-    {
-      words: [{ text: "الرَّحْمَٰنِ" }, { text: "الرَّحِيمِ" }],
-    },
-    {
-      words: [{ text: "مَٰلِكِ" }, { text: "يَوْمِ" }, { text: "الدِّينِ" }],
-    },
-    {
-      words: [
-        { text: "إِيَّاكَ" },
-        { text: "نَعْبُدُ" },
-        { text: "وَإِيَّاكَ" },
-        { text: "نَسْتَعِينُ" },
-      ],
-    },
-    {
-      words: [
-        { text: "اهْدِنَا" },
-        { text: "الصِّرَاطَ" },
-        { text: "الْمُسْتَقِيمَ" },
-      ],
-    },
-    {
-      words: [
-        { text: "صِرَاطَ" },
-        { text: "الَّذِينَ" },
-        { text: "أَنْعَمْتَ" },
-        { text: "عَلَيْهِمْ" },
-        { text: "غَيْرِ" },
-        { text: "الْمَغْضُوبِ" },
-        { text: "عَلَيْهِمْ" },
-        { text: "وَلَا" },
-        { text: "الضَّآلِّينَ" },
-      ],
-    },
-  ];
+  const ayahs = fatihah.ayahs;
   return (
-    <div>
+    <div dir="rtl" lang="ar">
+      <h1>
+        {fatihah.number}. {fatihah.transliteration} ({fatihah.name})
+      </h1>
       <AyahDisplay ayahs={ayahs}></AyahDisplay>
       <br />
       <Input></Input>
