@@ -1,6 +1,6 @@
-import { ReactNode } from "react";
-import Word from "./Word";
-import { WordProps } from "./Word";
+import { ReactNode } from 'react';
+import Word from './Word';
+import { WordProps } from './Word';
 
 export type AyahProps = {
   words: WordProps[];
