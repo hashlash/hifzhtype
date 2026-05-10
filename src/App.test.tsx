@@ -2,8 +2,8 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import App from './App';
 
-test('renders game container', () => {
+test('renders setup screen', () => {
   render(<App />);
-  const gameContainer = screen.getByRole('textbox');
-  expect(gameContainer).toBeInTheDocument();
+  const setupTitle = screen.getByText(/إعداد الحفظ/i);
+  expect(setupTitle).toBeInTheDocument();
 });
