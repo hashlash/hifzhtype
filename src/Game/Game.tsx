@@ -12,20 +12,26 @@ export default function Game() {
   const [lastActivity, setLastActivity] = useState(Date.now());
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const startLevel = (config: GameConfig, surahNumber: number, range: [number, number]) => {
+  const startLevel = (
+    config: GameConfig,
+    surahNumber: number,
+    range: [number, number],
+  ) => {
     // For now only fatihah
     const surah = fatihah;
     const startIdx = range[0] - 1;
     const endIdx = range[1] - 1;
     const selectedAyahs = surah.ayahs.slice(startIdx, endIdx + 1);
 
-    const initialWordStatuses: WordStatus[][] = selectedAyahs.map((ayah, aIdx) =>
-      ayah.words.map((word, wIdx) => ({
-        ayahIndex: aIdx,
-        wordIndex: wIdx,
-        status: wIdx < config.leadInWordCount && aIdx === 0 ? 'leadin' : 'pending',
-        typedText: ''
-      }))
+    const initialWordStatuses: WordStatus[][] = selectedAyahs.map(
+      (ayah, aIdx) =>
+        ayah.words.map((word, wIdx) => ({
+          ayahIndex: aIdx,
+          wordIndex: wIdx,
+          status:
+            wIdx < config.leadInWordCount && aIdx === 0 ? 'leadin' : 'pending',
+          typedText: '',
+        })),
     );
 
     setGameState({
@@ -34,8 +40,11 @@ export default function Game() {
       startAyah: range[0],
       endAyah: range[1],
       currentAyahIndex: 0,
-      currentWordIndex: config.leadInWordCount < selectedAyahs[0].words.length ? config.leadInWordCount : 0, // Simplified lead-in
-      wordStatuses: initialWordStatuses
+      currentWordIndex:
+        config.leadInWordCount < selectedAyahs[0].words.length
+          ? config.leadInWordCount
+          : 0, // Simplified lead-in
+      wordStatuses: initialWordStatuses,
     });
 
     // Reset trackers
@@ -115,7 +124,7 @@ export default function Game() {
       setErrorCount(0);
       setLastActivity(Date.now());
     },
-    [gameState]
+    [gameState],
   );
 
   const handleSpace = (typedWord: string) => {
@@ -149,7 +158,11 @@ export default function Game() {
 
   // Spoiler triggers
   useEffect(() => {
-    if (!gameState || gameState.currentAyahIndex >= (gameState.endAyah - gameState.startAyah + 1)) return;
+    if (
+      !gameState ||
+      gameState.currentAyahIndex >= gameState.endAyah - gameState.startAyah + 1
+    )
+      return;
     if (!gameState.config.autoRevealSpoiler) return;
 
     const timer = setInterval(() => {
@@ -163,9 +176,13 @@ export default function Game() {
       revealSpoiler();
     }
 
-    const currentAyah = fatihah.ayahs[gameState.startAyah - 1 + gameState.currentAyahIndex];
+    const currentAyah =
+      fatihah.ayahs[gameState.startAyah - 1 + gameState.currentAyahIndex];
     const targetWord = currentAyah.words[gameState.currentWordIndex].text;
-    if (gameState.config.spoilerOnExcessiveTyping && currentTyped.length > targetWord.length + 5) {
+    if (
+      gameState.config.spoilerOnExcessiveTyping &&
+      currentTyped.length > targetWord.length + 5
+    ) {
       revealSpoiler();
     }
 
@@ -176,13 +193,23 @@ export default function Game() {
     return <Setup onStart={startLevel} />;
   }
 
-  const selectedAyahs = fatihah.ayahs.slice(gameState.startAyah - 1, gameState.endAyah);
+  const selectedAyahs = fatihah.ayahs.slice(
+    gameState.startAyah - 1,
+    gameState.endAyah,
+  );
   const totalWords = selectedAyahs.reduce((acc, a) => acc + a.words.length, 0);
-  const completedWords = gameState.wordStatuses.flat().filter(s => ['correct', 'revealed', 'leadin'].includes(s.status)).length;
+  const completedWords = gameState.wordStatuses
+    .flat()
+    .filter((s) => ['correct', 'revealed', 'leadin'].includes(s.status)).length;
   const progress = (completedWords / totalWords) * 100;
 
   return (
-    <div className="game-container" dir="rtl" lang="ar" onClick={() => inputRef.current?.focus()}>
+    <div
+      className="game-container"
+      dir="rtl"
+      lang="ar"
+      onClick={() => inputRef.current?.focus()}
+    >
       <div className="game-header" dir="ltr">
         <button onClick={() => setGameState(null)}>Back to Setup</button>
         <div className="progress-bar-container">
@@ -193,15 +220,23 @@ export default function Game() {
       <div className={`ayahs-display ${gameState.config.layoutMode}`}>
         {selectedAyahs.map((ayah, aIdx) => {
           const isCurrentAyah = aIdx === gameState.currentAyahIndex;
-          const showAyahTranslation = (gameState.config.translationDisplay === 'ayah' || gameState.config.translationDisplay === 'both') &&
-            (aIdx < gameState.currentAyahIndex || (aIdx === gameState.currentAyahIndex && gameState.currentWordIndex === ayah.words.length));
+          const showAyahTranslation =
+            (gameState.config.translationDisplay === 'ayah' ||
+              gameState.config.translationDisplay === 'both') &&
+            (aIdx < gameState.currentAyahIndex ||
+              (aIdx === gameState.currentAyahIndex &&
+                gameState.currentWordIndex === ayah.words.length));
 
           return (
-            <div key={aIdx} className={`ayah-block ${showAyahTranslation ? 'with-translation' : ''}`}>
+            <div
+              key={aIdx}
+              className={`ayah-block ${showAyahTranslation ? 'with-translation' : ''}`}
+            >
               <div className="words-container">
                 {ayah.words.map((word, wIdx) => {
                   const status = gameState.wordStatuses[aIdx][wIdx];
-                  const isCurrentWord = isCurrentAyah && wIdx === gameState.currentWordIndex;
+                  const isCurrentWord =
+                    isCurrentAyah && wIdx === gameState.currentWordIndex;
 
                   return (
                     <React.Fragment key={wIdx}>
@@ -209,16 +244,21 @@ export default function Game() {
                         text={word.text}
                         translation={word.translation}
                         status={isCurrentWord ? 'typing' : status.status}
-                        typedText={isCurrentWord ? currentTyped : status.typedText}
+                        typedText={
+                          isCurrentWord ? currentTyped : status.typedText
+                        }
                         config={gameState.config}
-                      />
-                      {' '}
+                      />{' '}
                     </React.Fragment>
                   );
                 })}
                 <span className="ayah-marker">۝{ayah.number}</span>
               </div>
-              {showAyahTranslation && <div className="ayah-translation" dir="ltr">{ayah.translation}</div>}
+              {showAyahTranslation && (
+                <div className="ayah-translation" dir="ltr">
+                  {ayah.translation}
+                </div>
+              )}
             </div>
           );
         })}

@@ -10,15 +10,31 @@ export interface WordProps {
   config?: GameConfig;
 }
 
-export default function Word({ text, translation, status, typedText = '', config }: WordProps) {
-  const showVocalized = status === 'correct' || status === 'leadin' ||
+export default function Word({
+  text,
+  translation,
+  status,
+  typedText = '',
+  config,
+}: WordProps) {
+  const showVocalized =
+    status === 'correct' ||
+    status === 'leadin' ||
     (status === 'revealed' && config?.spoilerRevealType === 'vocalized');
 
-  const showBase = status === 'revealed' && config?.spoilerRevealType === 'base';
+  const showBase =
+    status === 'revealed' && config?.spoilerRevealType === 'base';
 
-  const displayText = showVocalized ? text : (showBase ? normalizeArabic(text) : typedText);
+  const displayText = showVocalized
+    ? text
+    : showBase
+      ? normalizeArabic(text)
+      : typedText;
 
-  const showTranslation = config && (config.translationDisplay === 'word' || config.translationDisplay === 'both') &&
+  const showTranslation =
+    config &&
+    (config.translationDisplay === 'word' ||
+      config.translationDisplay === 'both') &&
     (status === 'correct' || status === 'revealed' || status === 'leadin');
 
   const renderTypedContent = () => {
@@ -31,7 +47,8 @@ export default function Word({ text, translation, status, typedText = '', config
     const targetBase = normalizeArabic(text);
 
     return chars.map((char, idx) => {
-      const isCorrect = idx < targetBase.length && compareArabic(char, targetBase[idx]);
+      const isCorrect =
+        idx < targetBase.length && compareArabic(char, targetBase[idx]);
       return (
         <span key={idx} style={{ color: isCorrect ? 'green' : 'red' }}>
           {char}
@@ -51,13 +68,19 @@ export default function Word({ text, translation, status, typedText = '', config
     <span className="word-wrapper">
       <span
         className={`word ${status}`}
-        title={config?.translationPosition === 'tooltip' ? translation : undefined}
+        title={
+          config?.translationPosition === 'tooltip' ? translation : undefined
+        }
         style={{ color: getStatusColor() }}
       >
-        {status === 'typing' || status === 'incorrect' ? renderTypedContent() : displayText}
+        {status === 'typing' || status === 'incorrect'
+          ? renderTypedContent()
+          : displayText}
       </span>
       {showTranslation && config.translationPosition === 'below' && (
-        <div className="word-translation" dir="ltr">{translation}</div>
+        <div className="word-translation" dir="ltr">
+          {translation}
+        </div>
       )}
       <style>{`
         .word-wrapper {

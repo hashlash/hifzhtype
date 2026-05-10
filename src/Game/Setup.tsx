@@ -1,10 +1,20 @@
 import React, { useState } from 'react';
-import { GameConfig, LayoutMode, TranslationDisplay, TranslationPosition, RevealType } from '../types/game';
+import {
+  GameConfig,
+  LayoutMode,
+  TranslationDisplay,
+  TranslationPosition,
+  RevealType,
+} from '../types/game';
 import { loadConfig, saveConfig } from '../utils/gameUtils';
 import { fatihah } from '../data/surah/1';
 
 interface SetupProps {
-  onStart: (config: GameConfig, surahNumber: number, range: [number, number]) => void;
+  onStart: (
+    config: GameConfig,
+    surahNumber: number,
+    range: [number, number],
+  ) => void;
 }
 
 export default function Setup({ onStart }: SetupProps) {
@@ -33,15 +43,34 @@ export default function Setup({ onStart }: SetupProps) {
         <h2>الاختيار (Selection)</h2>
         <div className="form-group">
           <label>السورة (Surah):</label>
-          <select value={selectedSurah} onChange={(e) => setSelectedSurah(Number(e.target.value))}>
-            {surahs.map(s => <option key={s.number} value={s.number}>{s.number}. {s.name}</option>)}
+          <select
+            value={selectedSurah}
+            onChange={(e) => setSelectedSurah(Number(e.target.value))}
+          >
+            {surahs.map((s) => (
+              <option key={s.number} value={s.number}>
+                {s.number}. {s.name}
+              </option>
+            ))}
           </select>
         </div>
         <div className="form-group" dir="ltr">
           <label>Ayah Range:</label>
-          <input type="number" value={startAyah} onChange={(e) => setStartAyah(Number(e.target.value))} min={1} max={7} />
+          <input
+            type="number"
+            value={startAyah}
+            onChange={(e) => setStartAyah(Number(e.target.value))}
+            min={1}
+            max={7}
+          />
           <span> to </span>
-          <input type="number" value={endAyah} onChange={(e) => setEndAyah(Number(e.target.value))} min={startAyah} max={7} />
+          <input
+            type="number"
+            value={endAyah}
+            onChange={(e) => setEndAyah(Number(e.target.value))}
+            min={startAyah}
+            max={7}
+          />
         </div>
       </section>
 
@@ -50,19 +79,38 @@ export default function Setup({ onStart }: SetupProps) {
 
         <div className="setting-item">
           <label>
-            <input type="checkbox" checked={config.realTimeFeedback} onChange={(e) => updateConfig('realTimeFeedback', e.target.checked)} />
+            <input
+              type="checkbox"
+              checked={config.realTimeFeedback}
+              onChange={(e) =>
+                updateConfig('realTimeFeedback', e.target.checked)
+              }
+            />
             Real-time Feedback
           </label>
         </div>
 
         <div className="setting-item">
           <label>Lead-in Words: </label>
-          <input type="number" value={config.leadInWordCount} onChange={(e) => updateConfig('leadInWordCount', Number(e.target.value))} min={0} max={5} />
+          <input
+            type="number"
+            value={config.leadInWordCount}
+            onChange={(e) =>
+              updateConfig('leadInWordCount', Number(e.target.value))
+            }
+            min={0}
+            max={5}
+          />
         </div>
 
         <div className="setting-item">
           <label>Layout Mode: </label>
-          <select value={config.layoutMode} onChange={(e) => updateConfig('layoutMode', e.target.value as LayoutMode)}>
+          <select
+            value={config.layoutMode}
+            onChange={(e) =>
+              updateConfig('layoutMode', e.target.value as LayoutMode)
+            }
+          >
             <option value="continuous">Continuous</option>
             <option value="blocked">Blocked</option>
           </select>
@@ -70,7 +118,15 @@ export default function Setup({ onStart }: SetupProps) {
 
         <div className="setting-item">
           <label>Translation Display: </label>
-          <select value={config.translationDisplay} onChange={(e) => updateConfig('translationDisplay', e.target.value as TranslationDisplay)}>
+          <select
+            value={config.translationDisplay}
+            onChange={(e) =>
+              updateConfig(
+                'translationDisplay',
+                e.target.value as TranslationDisplay,
+              )
+            }
+          >
             <option value="none">None</option>
             <option value="word">Word Level</option>
             <option value="ayah">Ayah Level</option>
@@ -80,7 +136,15 @@ export default function Setup({ onStart }: SetupProps) {
 
         <div className="setting-item">
           <label>Translation Position: </label>
-          <select value={config.translationPosition} onChange={(e) => updateConfig('translationPosition', e.target.value as TranslationPosition)}>
+          <select
+            value={config.translationPosition}
+            onChange={(e) =>
+              updateConfig(
+                'translationPosition',
+                e.target.value as TranslationPosition,
+              )
+            }
+          >
             <option value="tooltip">Tooltip</option>
             <option value="below">Below Word</option>
           </select>
@@ -88,7 +152,12 @@ export default function Setup({ onStart }: SetupProps) {
 
         <div className="setting-item">
           <label>Spoiler Reveal Type: </label>
-          <select value={config.spoilerRevealType} onChange={(e) => updateConfig('spoilerRevealType', e.target.value as RevealType)}>
+          <select
+            value={config.spoilerRevealType}
+            onChange={(e) =>
+              updateConfig('spoilerRevealType', e.target.value as RevealType)
+            }
+          >
             <option value="base">Base Letters</option>
             <option value="vocalized">Full Vocalized</option>
           </select>
@@ -96,13 +165,21 @@ export default function Setup({ onStart }: SetupProps) {
 
         <div className="setting-item">
           <label>
-            <input type="checkbox" checked={config.autoRevealSpoiler} onChange={(e) => updateConfig('autoRevealSpoiler', e.target.checked)} />
+            <input
+              type="checkbox"
+              checked={config.autoRevealSpoiler}
+              onChange={(e) =>
+                updateConfig('autoRevealSpoiler', e.target.checked)
+              }
+            />
             Auto-reveal Spoiler
           </label>
         </div>
       </section>
 
-      <button className="start-button" onClick={handleStart}>Start</button>
+      <button className="start-button" onClick={handleStart}>
+        Start
+      </button>
 
       <style>{`
         .setup-container {
